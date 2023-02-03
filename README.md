@@ -5,7 +5,7 @@ Antigravity trees, a game for the Global Game Jam 2023
 - [Max Romagnoli](https://www.maxromagnoli.com/) as programmer
 - [Federico de Micheli](https://www.facebook.com/federico.demicheli.3) as 3D modeller
 - [Miriam Mariani](https://www.instagram.com/mirium92/) as game designer
-- [Vittorio Romagnoli](https://open.spotify.com/artist/3CwCh7yducgKTZ7Y2lp3o2) as sound designer
+- [Zibbo](https://open.spotify.com/artist/3CwCh7yducgKTZ7Y2lp3o2) as sound designer
 
 ## Game
 In a world where trees are anti-gravitational, you are a rabbit, trying to reach his magic hat, that's also a portal to return you home.
@@ -17,3 +17,7 @@ In a world where trees are anti-gravitational, you are a rabbit, trying to reach
 - **Year of the Rabbit**: Make a game that has rabbits as an element in it, or showcases how your culture/locals celebrate the Year of the Rabbit, or make a game featuring cats for our Vietnamese friends who are celebrating the Year of the Cat.
 
 ### Devlog
+- On January 28th, Miriam and I listened to the theme reveal, and started brainstorming the game.
+- From the 29th to the 31st, Miriam and I worked on an idea that started from a sketch, a floating tree wrapped in a piece of earth. Federico, start modeling the main assets of the game.
+- February 2 : with help from the diversifiers, we decide to use a rabbit as the main character, the obvious choice because he must be able to jump from one floating plate to another. We decide to call the game "Antigravity Trees". I (Max) start installing Unity3D to experiment with 3D models, but the SSD breaks on the computer, and the day ends for me.
+- February 3 : Zibbo (my brother) and I start working on the soundtrack, which will be different depending on the chosen game mode "zen" or "kazoo". In the afternoon I change the SSD to the computer and reinstall the operating system, the programs and the project (thanks GitHub).
