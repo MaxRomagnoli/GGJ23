@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,13 +13,15 @@ public class GameManager : MonoBehaviour
     private Vector3 _playerStartingPoint;
 
     [Header("Items")]
-    [SerializeField] private Text itemsTakenText;
+    [SerializeField] private TMP_Text itemsTakenText;
     [SerializeField] private GameObject itemsParent;
+    [SerializeField] private int itemsToRun = 10;
     private List<GameObject> _itemsToCollect;
+    private string _textBeforeTaken;
     private int _takenTotal = 0;
 
-    [Header("Menu")]
-    [SerializeField] private GameObject mainMenu;
+    /*[Header("Menu")]
+    [SerializeField] private GameObject mainMenu;*/
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +31,7 @@ public class GameManager : MonoBehaviour
 
         // Items
         _itemsToCollect = new List<GameObject>();
+        _textBeforeTaken = itemsTakenText.text;
         foreach (Transform _transform in itemsParent.transform)
         {
             GameObject _obj = _transform.gameObject;
@@ -45,10 +50,10 @@ public class GameManager : MonoBehaviour
         if(player.transform.position.y < minDistanceToDie) { Die(); }
 
         // Menu
-        if(Input.GetKeyDown("KeyCode.Escape") || Input.GetKeyDown("Fire3"))
+        /*if(Input.GetKeyDown("KeyCode.Escape") || Input.GetKeyDown("Fire3"))
         {
             ToogleMenu();
-        }
+        }*/
     }
 
     private void Die()
@@ -81,12 +86,12 @@ public class GameManager : MonoBehaviour
 
     private void UpdateText()
     {
-        itemsTakenText.text = _takenTotal.ToString();
+        itemsTakenText.text = _textBeforeTaken + _takenTotal.ToString();
     }
 
     // Menu
 
-    private void ToogleMenu()
+    /*private void ToogleMenu()
     {
         ToogleMenu(!mainMenu.active);
     }
@@ -102,5 +107,5 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
         }
-    }
+    }*/
 }
