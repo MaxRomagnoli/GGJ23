@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
     [SerializeField] private Text zenText;
     [SerializeField] private Text kazooText;
@@ -24,13 +23,17 @@ public class MenuManager : MonoBehaviour
         // Buttons
         _startColor = zenText.color;
 
-        // Game mode
-        _gameMode = PlayerPrefs.GetString("gamemode", null);
-        continueButton.interactable = _gameMode != null;
-
         // Volume
         _actualVolume = PlayerPrefs.GetFloat("volume", volumeSlider.value);
-        volumeSlider.value = _actualVolume;
+
+        // Game mode
+        _gameMode = PlayerPrefs.GetString("gamemode", null);
+        if(_gameMode != null && _gameMode != "") {
+            continueButton.interactable = true;
+        } else {
+            _gameMode = "zen";
+        }
+        SetGameMode(_gameMode);
     }
 
     // Update is called once per frame
@@ -58,8 +61,6 @@ public class MenuManager : MonoBehaviour
         } else {
             kazooText.color = _startColor;
         }
-
-        newGameButton.interactable = true;
     }
 
     public void SetVolume()

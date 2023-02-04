@@ -20,6 +20,7 @@ namespace StarterAssets
 
         [Tooltip("Sprint speed of the character in m/s")]
         [SerializeField] private float SprintSpeed = 5.335f;
+        [SerializeField] private bool CanRun = true;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -35,6 +36,7 @@ namespace StarterAssets
         [Space(10)]
         [Tooltip("The height the player can jump")]
         [SerializeField] private float JumpHeight = 1.2f;
+        [SerializeField] private bool CanJump = true;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         [SerializeField] private float Gravity = -15.0f;
@@ -214,7 +216,7 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.sprint && CanRun ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -300,7 +302,7 @@ namespace StarterAssets
                 }
 
                 // Jump
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+                if (CanJump && _input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -387,6 +389,23 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+
+        // CUSTOM \\
+
+        public void SetCanRun(bool _can = true)
+        {
+            CanRun = _can;
+        }
+
+        public void SetCanJump(bool _can = true)
+        {
+            CanJump = _can;
+        }
+
+        public void SetGravity(float _gravity)
+        {
+            Gravity = _gravity;
         }
     }
 }

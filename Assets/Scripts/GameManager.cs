@@ -4,18 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using StarterAssets;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
     [SerializeField] private GameObject player;
     [SerializeField] private float minDistanceToDie = -1f;
+    private ThirdPersonController _thirdPersonController;
     private Vector3 _playerStartingPoint;
 
     [Header("Items")]
     [SerializeField] private TMP_Text itemsTakenText;
     [SerializeField] private GameObject itemsParent;
-    [SerializeField] private int itemsToRun = 10;
+    [SerializeField] private int itemsToJump = 10;
+    [SerializeField] private int itemsToRun = 20;
     private List<GameObject> _itemsToCollect;
     private string _textBeforeTaken;
     private int _takenTotal = 0;
@@ -28,6 +31,9 @@ public class GameManager : MonoBehaviour
     {
         // Player
         _playerStartingPoint = player.transform.position;
+        _thirdPersonController = player.GetComponent<ThirdPersonController>();
+        _thirdPersonController.SetCanJump(false);
+        _thirdPersonController.SetCanRun(false);
 
         // Items
         _itemsToCollect = new List<GameObject>();
@@ -66,14 +72,15 @@ public class GameManager : MonoBehaviour
     public void CheckItem(GameObject _obj)
     {
         foreach (GameObject _item in _itemsToCollect)
-        //for (int i = 0; i < _itemsToCollect.Count(); i++)
         {
             if(_item == null) { continue; }
             if (_obj.name == _item.name)
-            { SetAsTekenItem(_obj); return; }
+            {
+                SetAsTekenItem(_obj);
+                UpdateText();
+                return;
+            }
         }
-
-        UpdateText();
     }
 
     private void SetAsTekenItem(GameObject _obj, int _value = 1)
@@ -87,6 +94,8 @@ public class GameManager : MonoBehaviour
     private void UpdateText()
     {
         itemsTakenText.text = _textBeforeTaken + _takenTotal.ToString();
+        if(_takenTotal >= itemsToJump) { _thirdPersonController.SetCanJump(); }
+        if(_takenTotal >= itemsToRun) { _thirdPersonController.SetCanRun(); }
     }
 
     // Menu
