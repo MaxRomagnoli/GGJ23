@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4168c19741896944584014865594dc2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 665093998}
+  player: {fileID: 1787075748}
   minDistanceToDie: -1
   itemsTakenText: {fileID: 1652566424}
   itemsParent: {fileID: 704678415}
