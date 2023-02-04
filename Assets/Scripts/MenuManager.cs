@@ -6,16 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    [Header("Buttons")]
+    [Header("UI")]
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
-
-    [Header("Game mode")]
     [SerializeField] private Text zenText;
     [SerializeField] private Text kazooText;
     [SerializeField] private Color selectedColor;
+    [SerializeField] private Slider volumeSlider;
+
     private Color _startColor;
     private string _gameMode;
+    private float _actualVolume;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,10 @@ public class MenuManager : MonoBehaviour
         // Game mode
         _gameMode = PlayerPrefs.GetString("gamemode", null);
         continueButton.interactable = _gameMode != null;
+
+        // Volume
+        _actualVolume = PlayerPrefs.GetFloat("volume", volumeSlider.value);
+        volumeSlider.value = _actualVolume;
     }
 
     // Update is called once per frame
@@ -37,15 +42,38 @@ public class MenuManager : MonoBehaviour
     public void SetGameMode(string _newGameMode)
     {
         _gameMode = _newGameMode;
-        zenText.color = _newGameMode == "zen" ? selectedColor : _startColor;
-        kazooText.color = _newGameMode == "kazoo" ? selectedColor : _startColor;
+
+        if(_newGameMode == "zen") {
+            AudioManager.instance.SetVolume("Zen", _actualVolume);
+            AudioManager.instance.SetVolume("Kazoo", 0f);
+            zenText.color = selectedColor ;
+        } else {
+            zenText.color = _startColor;
+        }
+
+        if(_newGameMode == "kazoo") {
+            AudioManager.instance.SetVolume("Kazoo", _actualVolume);
+            AudioManager.instance.SetVolume("Zen", 0f);
+            kazooText.color = selectedColor ;
+        } else {
+            kazooText.color = _startColor;
+        }
+
         newGameButton.interactable = true;
+    }
+
+    public void SetVolume()
+    {
+        _actualVolume = volumeSlider.value;
+        PlayerPrefs.SetFloat("volume", volumeSlider.value);
+        SetGameMode(_gameMode);
     }
 
     public void NewGame(string _sceneName)
     {
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetString("gamemode", _gameMode);
+        PlayerPrefs.SetFloat("volume", volumeSlider.value);
         ContinueGame(_sceneName);
     }
 

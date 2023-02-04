@@ -208,8 +208,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 58.99
+  m_fontSizeBase: 58.99
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -370,8 +370,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 137.795, y: -52.9242}
-  m_SizeDelta: {x: 235.59, y: 65.8484}
+  m_AnchoredPosition: {x: 137.795, y: -59.55925}
+  m_SizeDelta: {x: 235.59, y: 79.1185}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &96802353
 MonoBehaviour:
@@ -551,8 +551,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Volume
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -743,8 +743,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 393.385, y: -52.9242}
-  m_SizeDelta: {x: 235.59, y: 65.8484}
+  m_AnchoredPosition: {x: 393.385, y: -59.55925}
+  m_SizeDelta: {x: 235.59, y: 79.1185}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &210286768
 MonoBehaviour:
@@ -1407,8 +1407,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Select a game mode
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2074,7 +2074,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021739786}
-  m_LocalRotation: {x: -0.1600505, y: -0.27887756, z: -0.04719638, w: 0.9457186}
+  m_LocalRotation: {x: -0.1600505, y: -0.2788775, z: -0.047196377, w: 0.94571865}
   m_LocalPosition: {x: 7.040087, y: 11.492544, z: -26.744085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2186,7 +2186,19 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1819570972}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: SetVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1056810388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2350,8 +2362,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 137.795, y: -50.76183}
-  m_SizeDelta: {x: 235.59, y: 61.52366}
+  m_AnchoredPosition: {x: 137.795, y: -57.580444}
+  m_SizeDelta: {x: 235.59, y: 75.16089}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1234683367
 MonoBehaviour:
@@ -2573,7 +2585,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441884226}
-  m_LocalRotation: {x: -0.1600505, y: -0.27887756, z: -0.04719638, w: 0.9457186}
+  m_LocalRotation: {x: -0.1600505, y: -0.2788775, z: -0.047196377, w: 0.94571865}
   m_LocalPosition: {x: 0, y: -5, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2678,7 +2690,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixerGroup: {fileID: 0}
-  sounds: []
+  sounds:
+  - nameSound: Kazoo
+    clip: {fileID: 8300000, guid: 76e009354fd090c43abfd74ffa838f2b, type: 3}
+    source: {fileID: 0}
+    mute: 0
+    bypassEff: 0
+    bypassList: 0
+    bypassRev: 0
+    playOnAwake: 1
+    loop: 1
+    priority: 1
+    volume: 0
+    pitch: 1
+    stereoPan: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 0
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    mixerGroup: {fileID: 0}
+    displaySound: 1
+  - nameSound: Zen
+    clip: {fileID: 8300000, guid: 337bbed5b5744dd408f05e2ebc12d48c, type: 3}
+    source: {fileID: 0}
+    mute: 0
+    bypassEff: 0
+    bypassList: 0
+    bypassRev: 0
+    playOnAwake: 1
+    loop: 1
+    priority: 1
+    volume: 0.75
+    pitch: 1
+    stereoPan: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 0
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    mixerGroup: {fileID: 0}
+    displaySound: 1
 --- !u!4 &1509091714
 Transform:
   m_ObjectHideFlags: 0
@@ -2731,8 +2785,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 393.385, y: -50.76183}
-  m_SizeDelta: {x: 235.59, y: 61.52366}
+  m_AnchoredPosition: {x: 393.385, y: -57.580444}
+  m_SizeDelta: {x: 235.59, y: 75.16089}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1577735342
 MonoBehaviour:
@@ -3156,6 +3210,7 @@ MonoBehaviour:
   zenText: {fileID: 2055010119}
   kazooText: {fileID: 1958889165}
   selectedColor: {r: 0.16470589, g: 0.3647059, b: 1, a: 1}
+  volumeSlider: {fileID: 1028847107}
 --- !u!4 &1819570973
 Transform:
   m_ObjectHideFlags: 0

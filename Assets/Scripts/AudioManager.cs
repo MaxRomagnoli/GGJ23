@@ -68,6 +68,14 @@ public class AudioManager : MonoBehaviour
         s.source.Stop();
     }
 
+    public void SetVolume(string sound, float volume)
+    {
+        Sound s = Array.Find(sounds.ToArray(), item => item.nameSound == sound);
+        if (s == null)
+        { Debug.LogWarning("Sound: " + name + " not found!"); return; }
+        s.source.volume = volume;
+    }
+
     public void StopAll()
     {
         foreach(Sound s in sounds)
