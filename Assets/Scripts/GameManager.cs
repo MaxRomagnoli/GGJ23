@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     private List<GameObject> _itemsToCollect;
     private int _takenTotal = 0;
 
+    [Header("Menu")]
+    [SerializeField] private GameObject mainMenu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +41,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player == null ) { return; }
+        // Player
         if(player.transform.position.y < minDistanceToDie) { Die(); }
+
+        // Menu
+        if(Input.GetKeyDown("KeyCode.Escape") || Input.GetKeyDown("Fire3"))
+        {
+            ToogleMenu();
+        }
     }
 
     private void Die()
@@ -73,5 +82,25 @@ public class GameManager : MonoBehaviour
     private void UpdateText()
     {
         itemsTakenText.text = _takenTotal.ToString();
+    }
+
+    // Menu
+
+    private void ToogleMenu()
+    {
+        ToogleMenu(!mainMenu.active);
+    }
+
+    private void ToogleMenu(bool _active)
+    {
+        mainMenu.SetActive(_active);
+        if(_active)
+        {
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            Time.timeScale = 0f;
+        }
     }
 }
