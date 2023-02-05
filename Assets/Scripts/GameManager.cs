@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 using StarterAssets;
 
 public class GameManager : MonoBehaviour
@@ -15,12 +13,11 @@ public class GameManager : MonoBehaviour
     private Vector3 _playerStartingPoint;
 
     [Header("Items")]
-    [SerializeField] private TMP_Text itemsTakenText;
+    [SerializeField] private Slider itemsTakenSlider;
     [SerializeField] private GameObject itemsParent;
     [SerializeField] private int itemsToJump = 10;
     [SerializeField] private int itemsToRun = 20;
     private List<GameObject> _itemsToCollect;
-    private string _textBeforeTaken;
     private int _takenTotal = 0;
 
     /*[Header("Menu")]
@@ -37,9 +34,10 @@ public class GameManager : MonoBehaviour
 
         // Items
         _itemsToCollect = new List<GameObject>();
-        _textBeforeTaken = itemsTakenText.text;
+        itemsTakenSlider.maxValue = 0;
         foreach (Transform _transform in itemsParent.transform)
         {
+            itemsTakenSlider.maxValue += 1;
             GameObject _obj = _transform.gameObject;
             int _taken = PlayerPrefs.GetInt(_obj.name, 0);
             if(_taken > 0) { SetAsTekenItem(_obj); }
@@ -64,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     private void Die()
     {
+        Debug.Log("Died");
         player.transform.position = _playerStartingPoint;
     }
 
@@ -93,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateText()
     {
-        itemsTakenText.text = _textBeforeTaken + _takenTotal.ToString();
+        itemsTakenSlider.value = _takenTotal;
         if(_takenTotal >= itemsToJump) { _thirdPersonController.SetCanJump(); }
         if(_takenTotal >= itemsToRun) { _thirdPersonController.SetCanRun(); }
     }
