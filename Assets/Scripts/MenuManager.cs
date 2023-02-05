@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
 
     private Color _startColor;
     private string _gameMode;
-    private float _actualVolume;
+    private float _actualVolume = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,12 +24,15 @@ public class MenuManager : MonoBehaviour
         _startColor = zenText.color;
 
         // Volume
-        _actualVolume = PlayerPrefs.GetFloat("volume", volumeSlider.value);
+        if(volumeSlider != null)
+        {
+            _actualVolume = PlayerPrefs.GetFloat("volume", volumeSlider.value);
+        }
 
         // Game mode
         _gameMode = PlayerPrefs.GetString("gamemode", null);
         if(_gameMode != null && _gameMode != "") {
-            continueButton.interactable = true;
+            if(continueButton != null) { continueButton.interactable = true; }
         } else {
             _gameMode = "zen";
         }
@@ -49,17 +52,17 @@ public class MenuManager : MonoBehaviour
         if(_newGameMode == "zen") {
             AudioManager.instance.SetVolume("Zen", _actualVolume);
             AudioManager.instance.SetVolume("Kazoo", 0f);
-            zenText.color = selectedColor ;
+            if(zenText != null) { zenText.color = selectedColor; }
         } else {
-            zenText.color = _startColor;
+            if(zenText != null) { zenText.color = _startColor; }
         }
 
         if(_newGameMode == "kazoo") {
             AudioManager.instance.SetVolume("Kazoo", _actualVolume);
             AudioManager.instance.SetVolume("Zen", 0f);
-            kazooText.color = selectedColor ;
+            if(kazooText != null) { kazooText.color = selectedColor; }
         } else {
-            kazooText.color = _startColor;
+            if(kazooText != null) { kazooText.color = _startColor; }
         }
     }
 

@@ -3,17 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using StarterAssets;
+//using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject cylinder;
     [SerializeField] private float minDistanceToDie = -1f;
+    [SerializeField] private Vector2 gravityValues = new Vector2(-15f, -5f);
+    [SerializeField] private float jetpackForce = 100f;
+    [SerializeField] private float jetpackRotation = 50f;
+    [SerializeField] private GameObject jetpack;
+    [SerializeField] private GameObject glasses;
     private ThirdPersonController _thirdPersonController;
+    private SphereCollider _sphereCollider;
+    private CharacterController _controller;
+    private StarterAssetsInputs _input;
+    private Rigidbody _rb;
     private Vector3 _playerStartingPoint;
+    private bool _gameOver = false;
+    
+    [Header("Camera")]
+    [SerializeField] private GameObject followCamera;
+    [SerializeField] private GameObject lookAtCamera;
+    //private CinemachineVirtualCamera _camera;
+
+    [Header("UI")]
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private Slider itemsTakenSlider;
+    [SerializeField] private Image jumpImage;
+    [SerializeField] private Image runImage;
+    [SerializeField] private Color colorWhenAchived;
 
     [Header("Items")]
-    [SerializeField] private Slider itemsTakenSlider;
     [SerializeField] private GameObject itemsParent;
     [SerializeField] private int itemsToJump = 10;
     [SerializeField] private int itemsToRun = 20;
@@ -26,8 +49,17 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Camera 
+        gameOverPanel.SetActive(false);
+        followCamera.SetActive(true);
+        lookAtCamera.SetActive(false);
+
         // Player
         _playerStartingPoint = player.transform.position;
+        _rb = player.GetComponent<Rigidbody>();
+        _input = player.GetComponent<StarterAssetsInputs>();
+        _sphereCollider = player.GetComponent<SphereCollider>();
+        _controller = player.GetComponent<CharacterController>();
         _thirdPersonController = player.GetComponent<ThirdPersonController>();
         _thirdPersonController.SetCanJump(false);
         _thirdPersonController.SetCanRun(false);
@@ -51,7 +83,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Player
-        if(player.transform.position.y < minDistanceToDie) { Die(); }
+        if(!_gameOver && player.transform.position.y < minDistanceToDie) { Die(); }
 
         // Menu
         /*if(Input.GetKeyDown("KeyCode.Escape") || Input.GetKeyDown("Fire3"))
@@ -60,16 +92,35 @@ public class GameManager : MonoBehaviour
         }*/
     }
 
+    void FixedUpdate()
+    {
+        if(_gameOver)
+        {
+            if(_input.move != Vector2.zero)
+            {
+                _rb.AddRelativeTorque(_input.move * jetpackRotation * Time.fixedDeltaTime, ForceMode.Acceleration);
+            }
+
+            if(_input.look != Vector2.zero)
+            {
+                _rb.AddForce(_input.look * Time.fixedDeltaTime * jetpackForce, ForceMode.Acceleration);
+            }
+        }
+    }
+
     private void Die()
     {
         Debug.Log("Died");
+        _thirdPersonController.enabled = false;
         player.transform.position = _playerStartingPoint;
+        _thirdPersonController.enabled = true;
     }
 
     // Items
 
     public void CheckItem(GameObject _obj)
     {
+        if(_obj.tag == "gameover") { GameOver(); }
         foreach (GameObject _item in _itemsToCollect)
         {
             if(_item == null) { continue; }
@@ -93,8 +144,62 @@ public class GameManager : MonoBehaviour
     private void UpdateText()
     {
         itemsTakenSlider.value = _takenTotal;
-        if(_takenTotal >= itemsToJump) { _thirdPersonController.SetCanJump(); }
-        if(_takenTotal >= itemsToRun) { _thirdPersonController.SetCanRun(); }
+
+        if(_takenTotal >= itemsToJump) {
+            _thirdPersonController.SetCanJump();
+            jumpImage.color = colorWhenAchived;
+        }
+
+        if(_takenTotal >= itemsToRun) {
+            _thirdPersonController.SetCanRun();
+            runImage.color = colorWhenAchived;
+        }
+
+        // (old_value - old_min) * (new_max - new_min) / (old_max - old_min) + new_min;
+        float _result = (_takenTotal - 0) * (gravityValues.y - gravityValues.x) / (itemsTakenSlider.maxValue - 0) + gravityValues.x;
+        _thirdPersonController.SetGravity(_result);
+    }
+
+    public void GameOver()
+    {
+        _gameOver = true;
+        _thirdPersonController.enabled = false;
+        _controller.enabled = false;
+        followCamera.SetActive(false);
+        lookAtCamera.SetActive(true);
+        StartCoroutine(IntoTheCilinder());
+        //_camera.m_LookAt = player.transform;
+        //_camera.m_Follow = null;
+    }
+
+    private IEnumerator IntoTheCilinder()
+    {
+        float elapsedTime = 0;
+        float waitTime = 2f;
+        Vector3 currentPos = player.transform.position;
+        Vector3 cylinderPos = cylinder.transform.position - (Vector3.up * 1f);
+        while (elapsedTime < waitTime)
+        {
+            player.transform.position = Vector3.Lerp(currentPos, cylinderPos, (elapsedTime / waitTime));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }  
+        
+        cylinder.SetActive(false);
+        jetpack.SetActive(true);
+        glasses.SetActive(true);
+        _rb.isKinematic = false;
+        _sphereCollider.enabled = true;
+        
+        elapsedTime = 0;
+        waitTime = 5f;
+        while (elapsedTime < waitTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
+        gameOverPanel.SetActive(true);
     }
 
     // Menu
